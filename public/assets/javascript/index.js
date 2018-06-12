@@ -14,7 +14,7 @@ $(document).ready(function () {
         //empty article container, run an AJAX request for any unsaved headlines
         articleContainer.empty();
         //if saved = false run function
-        $.get("/api/headlines?saved=false").then(function (data) {
+        $.getJSON("/api/headlines?saved=false").then(function (data) {
 
             //if headlines exist , render them to the page
             if (data && data.length) {
@@ -92,9 +92,9 @@ $(document).ready(function () {
 
     function handleArticleScrape() {
         //this function handles the user clicking any "scrape new article" buttons
-        $.get("/api/fetch")
+        $.getJSON("/api/fetch")
             .then(function (data) {
-                //if we're able to successfully scrape the NYTIMES and compare the articles to those already in our collection, re render the articles on the page and le the user know how many unique articles we were able to save
+                //if we're able to successfully scrape the NYTIMES and compare the articles to those already in our collection, re render the articles on the page and let the user know how many unique articles we were able to save
                 initPage();
                 bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "</h3>");
             });

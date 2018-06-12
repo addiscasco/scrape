@@ -1,13 +1,8 @@
 //require dependencies
 const express = require('express');
-
 const mongoose = require('mongoose');
-
-const exphbs  = require('express-handlebars');
-
 const bodyParser = require('body-parser');
-
-
+const exphbs  = require('express-handlebars');
 
 //set up port
 const PORT = process.env.PORT || 3000;
@@ -26,13 +21,10 @@ app.use(express.static(__dirname + "/public"));
 
 //connect handlebars to express app
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-
 app.set('view engine', 'handlebars');
 
 //use bodyparser in app
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 //every request goes through our router middleware
 app.use(router);
@@ -52,36 +44,10 @@ mongoose.connect(db, function(error){
     }
 });
 
+mongoose.Promise =global.Promise;
+
+
 //listen on the port
 app.listen(PORT, function(){
     console.log("Listening on port: " + PORT);
 });
-
-
-
-
-
-
-
-
-
-// app.get('/', function (req, res) {
-//     res.render('home');
-// });
-
-// app.listen(3000);
-
-
-// const $ = cheerio.load('<h2 class="title">Hello world</h2>')
-
-// $('h2.title').text('Hello there!')
-// $('h2').addClass('welcome')
-
-// $.html()
-
-// var request = require('request');
-// request('http://www.google.com', function (error, response, body) {
-//   console.log('error:', error); // Print the error if one occurred
-//   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-//   console.log('body:', body); // Print the HTML for the Google homepage.
-// });

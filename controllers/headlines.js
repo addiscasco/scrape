@@ -14,10 +14,18 @@ module.exports = {
                 articles[i].date = makeDate();
                 articles[i].saved = false;
             }
+            console.log("DATA");
+            console.log(data);
             //mongo function taking headline and inserting into the collection and if one article fails it won't stop the process and instead will skip the article
-            Headline.collection.insertMany(articles, { ordered: false }, function (err, docs) {
+            Headline.collection.insertMany(articles, { ordered: false }, {sparse: true, unique: true}, function (err, docs) {
                 cb(err, docs);
             });
+
+            // Headline.create(articles).then(function (dbArticle) {
+            //     console.log("dbart", dbArticle);
+            // }).catch(function (err) {
+            //     console.log(err);
+            // });
         });
     },
     //delete function and whatever headline is queried will be removed

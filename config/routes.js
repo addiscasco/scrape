@@ -14,7 +14,7 @@ module.exports = function (router) {
     router.get("/saved", function (req, res) {
         res.render("saved");
     });
-    // when get api/fetch run function to go to headlinescontroller and run fetch and pop message depending on state of articles
+    // when get api/fetch run function to go to headlinesController and run fetch and pop message depending on state of articles
     router.get("/api/fetch", function (req, res) {
         headlinesController.fetch(function (err, docs) {
             if (!docs || docs.insertedCount === 0) {
