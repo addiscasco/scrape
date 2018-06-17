@@ -17,7 +17,8 @@ const router = express.Router();
 require("./config/routes")(router);
 
 //designate public folder as a static directory
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
+// app.use(express.static("/public"));
 
 //connect handlebars to express app
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -30,10 +31,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
 //if deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-const db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// var db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 //connect mongoose to our db
-mongoose.connect(db, function (error) {
+mongoose.connect(process.env.MONGOB_URI ||  "mongodb://localhost/mongoHeadlines" , function (error) {
     //log errors connecting w/mongoose
     if (error) {
         console.log(error);
@@ -44,7 +45,7 @@ mongoose.connect(db, function (error) {
     }
 });
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 
 //listen on the port
 app.listen(PORT, function () {
