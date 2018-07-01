@@ -5,6 +5,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
+var rp = require('request-promise')
 
 var Article = require("./models/Article");
 
@@ -56,9 +57,9 @@ mongoose.connect(database, function (error){
 // Routes
 app.get("/scrape", function (req, res) {
     // Grabs body of HTML with request
-    axios.get("http://www.nytimes.com/").then(function (response) {
+    rp("http://www.nytimes.com/").then(function (response) {
         // Receive response into cheerio and save it to $ variable
-        var $ = cheerio.load(response.data);
+        var $ = cheerio.load(response);
 
         // Grabs h2 elements
         $(".summary").each(function (i, el) {
