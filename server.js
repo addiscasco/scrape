@@ -45,16 +45,16 @@ mongoose.Promise = Promise;
 // });
 
 //Connect to MongoDB db = scraper
-mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/scraper" );
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scraper");
 var db = mongoose.connection;
 
-db.on( "error", function ( error ) {
-  console.log( "Mongoose Error: ", error );
-} )
+db.on("error", function (error) {
+    console.log("Mongoose Error: ", error);
+});
 
-db.once( "open", function () {
-  console.log( "Mongoose connected." );
-} );
+db.once("open", function () {
+    console.log("Mongoose connected.");
+});
 
 
 // mongoose.connect(MONGODB_URI, function (error) {
@@ -78,13 +78,13 @@ app.get("/scrape", function (req, res) {
             var outcome = {};
 
             outcome.title = $(this).children('.story-heading').children("a").text();
-            // console.log('title', outcome.title);
+            console.log('title', outcome.title);
 
-            outcome.link = $(this).children('.story-heading').children().attr('href')
-            // console.log('link', outcome.link);
+            outcome.link = $(this).children('.story-heading').children().attr('href');
+            console.log('link', outcome.link);
 
             outcome.author = $(this).children('.byline').text();
-            // console.log('author', outcome.author);
+            console.log('author', outcome.author);
 
             // outcome.title = $(this)
             //     .parent(".story theme-summary lede")
