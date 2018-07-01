@@ -1,53 +1,97 @@
-//require dependencies
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const exphbs = require('express-handlebars');
+//Dependencies
+var express = require("express");
+var bodyParser = require("body-parser");
+var logger = require("morgan");
+var mongoose = require("mongoose");
+var axios = require("axios");
+var cheerio = require("cheerio");
 
-//set up port
-const PORT = process.env.PORT || 3000;
+// Require models
+var db = require("./models");
 
-//instantiate Express app
-const app = express();
+//Set up port
+var PORT = process.env.PORT || 3000;
 
-//set up an Express router 
-const router = express.Router();
+//Instantiate express app
+var app = express();
 
-//require our routes file pass our router object
-require("./config/routes")(router);
+// Logging requests
+app.use(logger("dev"));
 
-//designate public folder as a static directory
-app.use(express.static("public"));
-// app.use(express.static("/public"));
-
-//connect handlebars to express app
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
-
-//use bodyparser in app
+// Use body-parser 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//every request goes through our router middleware
-app.use(router);
+//Public folder as a static directory
+app.use(express.static("public"));
+mongoose.Promise = Promise;
 
-//if deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-// var db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// Connect MONGODB or Localhost 
+var MONGODB_URI = "" || "mongodb://localhost/Scrape";
 
 //connect mongoose to our db
-mongoose.connect(process.env.MONGOB_URI ||  "mongodb://localhost/mongoHeadlines" , function (error) {
-    //log errors connecting w/mongoose
+mongoose.connect(MONGODB_URI, function (error) {
     if (error) {
         console.log(error);
     }
-    //or log a success message
     else {
-        console.log("mongoose connection is successful");
+        console.log("Mongoose connection is successful");
     }
 });
 
-mongoose.Promise = Promise;
+// Routes
+app.get("/scrape", function (req, res) {
+    // Grabs body of HTML with request
+    axios.get("http://www.nytimes.com/").then(function (response) {
+        // Receive response into cheerio and save it to $ variable
+        var $ = cheerio.load(response.data);
 
-//listen on the port
-app.listen(PORT, function () {
-    console.log("Listening on port: " + PORT);
+        // Grabs h2 elements
+        $(".summary").each(function (i, el) {
+
+            var outcome = {};
+
+            outcome.title = $(this)
+                .parent(".story theme-summary lede")
+                .children(".story-heading")
+                .children("a")
+                .children(".byline")
+                .children(".timestamp")
+                .children(".summary")
+                .text().trim();
+            outcome.link = $(this)
+                .children("a")
+                .attr("href");
+
+            console.log("RESULT: " + outcome);
+
+            // Creates a new Article 
+            if (outcome.link && outcome.title) {
+
+                db.Article.create(outcome)
+                    .then(function (dbArticle) {
+                        console.log(dbArticle);
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            }
+        });
+        res.send("Success!");
+    });
+});
+
+//Gets all articles
+app.get("/articles", function (req, res) {
+    db.Article.find({})
+        .then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+});
+
+//Listening on the port
+app.listen(process.env.PORT || PORT, function () {
+    console.log("App listening on PORT " + PORT);
 });

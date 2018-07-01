@@ -1,17 +1,17 @@
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+// Create a schema reference
+var Schema = mongoose.Schema;
 
-//noteSchema
-const noteSchema = new Schema ({
-    _headlineId: {
-        type: Schema.Types.ObjectId,
-        ref: "Headline"
+var NoteSchema = new Schema({
+    title: {
+        type: String
     },
-    date: String, 
-    noteText: String
+    body: {
+        type: String
+    }
 });
 
-const Note = mongoose.model("Note", noteSchema);
+var Note = mongoose.model("Note", NoteSchema);
 
 module.exports = Note;
