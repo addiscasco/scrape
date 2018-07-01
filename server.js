@@ -31,7 +31,7 @@ mongoose.Promise = Promise;
 //connect mongoose to our db
 
 var db = "mongodb://addthis:password410@ds123971.mlab.com:23971/heroku_w239b39v" || "mongodb://localhost/scrape";
-
+ 
 mongoose.connect(db, function (error){
     if(error){
         console.log(error);
