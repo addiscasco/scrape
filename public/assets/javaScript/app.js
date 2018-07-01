@@ -8,7 +8,7 @@ $.getJSON("/articles", function (data) {
 
         // $("#articles").append(`<a href=" + dataI.link}" id="link" dataId="${dataI._id}> ${dataI.link} </>`);
 
-        $("#articles").append(`<button type="button" dataId='"${dataI.link}"'>Read More</button>`);
+        $("#articles").append(`<button id="editNote" dataId='"${dataI.link}"'>Read More</button>`);
     }
 });
 
@@ -33,7 +33,7 @@ $(document).on("click", "#editNote", function () {
             //title, insertNoteText, and button to submit new note with new info
             $("#notes").append("<h2>" + data.title + "</h2>");
             $("#notes").append("<input id='insertNoteTitle' name='title' >");
-            $("#notes").append("<insertNoteText id='insertNoteBody' name='body'></insertNoteText>");
+            $("#notes").append("<textarea id='insertNoteBody' name='body'></textarea>");
             $("#notes").append("<button dataId='" + data._id + "' id='saveNote'>Save</button>");
 
             // If note exist, then insert title and body
