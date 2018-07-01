@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var axios = require("axios");
-var rp = require('request-promise')
+var rp = require('request-promise');
 var cheerio = require("cheerio");
 
 // Require models
@@ -44,7 +44,6 @@ mongoose.Promise = Promise;
 //     }
 // });
 
-//brandon
 //Connect to MongoDB db = scraper
 mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/scraper" );
 var db = mongoose.connection;
@@ -78,7 +77,7 @@ app.get("/scrape", function (req, res) {
 
             var outcome = {};
 
-            outcome.title = $(this).children('.story-heading').text();
+            outcome.title = $(this).children('.story-heading').children("a").text();
             // console.log('title', outcome.title);
 
             outcome.link = $(this).children('.story-heading').children().attr('href')

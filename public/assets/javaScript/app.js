@@ -8,7 +8,7 @@ $.getJSON("/articles", function (data) {
 
         // $("#articles").append(`<a href=" + dataI.link}" id="link" dataId="${dataI._id}> ${dataI.link} </>`);
 
-        $("#articles").append(`<button type="button" class="btn btn-outline-secondary" id="editNote" dataId="${dataI.link}">Read More</button>`);
+        $("#articles").append(`<button type="button" class="btn btn-outline-secondary" dataId="${dataI.link}">Read More</button>`);
     }
 });
 
@@ -74,7 +74,7 @@ $("#scrape").on("click", function () {
     $.get("/scrape", function (data, cb) { })
         .then(function (data) {
             if (data) {
-                console.log("Scrape DONE");
+                alert("Scrape succeeded");
                 location.reload();
             }
         });
