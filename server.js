@@ -26,7 +26,7 @@ app.use(express.static("public"));
 mongoose.Promise = Promise;
 
 // Connect MONGODB or Localhost 
-var MONGODB_URI = "mongodb://addthis:password410@ds123971.mlab.com:23971/heroku_w239b39v" || "mongodb://localhost/Scrape";
+var MONGODB_URI = "mongodb://addthis:password410@ds123971.mlab.com:23971/addthis" || "mongodb://localhost/Scrape";
 
 //connect mongoose to our db
 mongoose.connect(MONGODB_URI, function (error) {
