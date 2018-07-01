@@ -66,7 +66,9 @@ app.get("/scrape", function (req, res) {
             var outcome = {};
 
             outcome.author = $(this).children('.byline').text();
-            console.log(outcome.author);
+            append(outcome.author);
+            
+            outcome.title = $(this).children('.story-heading').children('a');
 
             // outcome.title = $(this)
             //     .parent(".story theme-summary lede")
