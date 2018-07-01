@@ -8,7 +8,7 @@ $.getJSON("/articles", function (data) {
 
         // $("#articles").append(`<a href=" + dataI.link}" id="link" dataId="${dataI._id}> ${dataI.link} </>`);
 
-        $("#articles").append(`<button type="button" class="btn btn-outline-secondary" dataId="${dataI.link}">Read More</button>`);
+        $("#articles").append(`<button type="button" dataId='"${dataI.link}"'>Read More</button>`);
     }
 });
 
