@@ -115,6 +115,7 @@ app.get("/scrape", function (req, res) {
             }
         });
         res.send("Success!");
+        res.send(dbArticle);
     });
 });
 
