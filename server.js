@@ -34,16 +34,28 @@ mongoose.Promise = Promise;
 
 //connect mongoose to our db
 
-var database = "mongodb://addthis:password410@ds123971.mlab.com:23971/heroku_w239b39v" || "mongodb://localhost/scrape";
+//Connect to MongoDB
+mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/newsscraper" );
+var database = mongoose.connection;
 
-mongoose.connect(database, function (error) {
-    if (error) {
-        console.log(error);
-    }
-    else {
-        console.log("connected");
-    }
+database.on( "error", function ( error ) {
+  console.log( "Mongoose Error: ", error );
+})
+
+database.once( "open", function () {
+  console.log( "Mongoose connected." );
 });
+
+// var database = "mongodb://addthis:password410@ds123971.mlab.com:23971/heroku_w239b39v" || "mongodb://localhost/scrape";
+
+// mongoose.connect(database, function (error) {
+//     if (error) {
+//         console.log(error);
+//     }
+//     else {
+//         console.log("connected");
+//     }
+// });
 
 // mongoose.connect(MONGODB_URI, function (error) {
 //     if (error) {
