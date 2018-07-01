@@ -6,7 +6,7 @@ $.getJSON("/articles", function (data) {
         var dataI = data[i];
         $("#articles").append("<p dataId='" + dataI._id + "'>" + dataI.title + "<br />" + "<p class='summary'>" + "</p>" + "</p>");
 
-        // $("#articles").append(`<a href=" + dataI.link}" id="link" dataId="${dataI._id}> ${dataI.link} </>`);
+        $("#articles").append(`<a href=" + dataI.link}" id="link" dataId="${dataI._id}> ${dataI.link} </>`);
 
         $("#articles").append(`<button id="editNote" dataId='"${dataI.link}"'>Read More</button>`);
     }
