@@ -65,31 +65,34 @@ app.get("/scrape", function (req, res) {
 
             var outcome = {};
 
-            outcome.title = $(this)
-                .parent(".story theme-summary lede")
-                .children(".story-heading")
-                .children("a")
-                .children(".byline")
-                .children(".timestamp")
-                .children(".summary")
-                .text().trim();
-            outcome.link = $(this)
-                .children("a")
-                .attr("href");
+            outcome.author = $(this).children('.byline').text();
+            console.log(outcome.author);
 
-            console.log("RESULT: " + outcome);
+            // outcome.title = $(this)
+            //     .parent(".story theme-summary lede")
+            //     .children(".story-heading")
+            //     .children("a")
+            //     .children(".byline")
+            //     .children(".timestamp")
+            //     .children(".summary")
+            //     .text().trim();
+            // outcome.link = $(this)
+            //     .children("a")
+            //     .attr("href");
 
-            // Creates a new Article 
-            if (outcome.link && outcome.title) {
+            // console.log("RESULT: " + outcome);
 
-                db.Article.create(outcome)
-                    .then(function (dbArticle) {
-                        console.log(dbArticle);
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
-            }
+            // // Creates a new Article 
+            // if (outcome.link && outcome.title) {
+
+            //     db.Article.create(outcome)
+            //         .then(function (dbArticle) {
+            //             console.log(dbArticle);
+            //         })
+            //         .catch(function (err) {
+            //             console.log(err);
+            //         });
+            // }
         });
         res.send("Success!");
     });
