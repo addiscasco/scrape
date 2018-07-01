@@ -35,12 +35,12 @@ mongoose.Promise = Promise;
 //connect mongoose to our db
 
 var database = "mongodb://addthis:password410@ds123971.mlab.com:23971/heroku_w239b39v" || "mongodb://localhost/scrape";
- 
-mongoose.connect(database, function (error){
-    if(error){
+
+mongoose.connect(database, function (error) {
+    if (error) {
         console.log(error);
     }
-    else{
+    else {
         console.log("connected");
     }
 });
@@ -66,11 +66,13 @@ app.get("/scrape", function (req, res) {
 
             var outcome = {};
 
+            outcome.title = $(this).children('.story-heading').children('a').text();
+
             outcome.author = $(this).children('.byline').text();
             append(outcome.author);
-            
-            outcome.title = $(this).children('.story-heading').children('a').text();
-            outcome.link = $(this).children(".story-heading").attr("href");
+
+
+            outcome.link = $(this).children(".story-heading").children().attr("href");
 
             // outcome.title = $(this)
             //     .parent(".story theme-summary lede")
