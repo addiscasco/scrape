@@ -69,6 +69,7 @@ app.get("/scrape", function (req, res) {
             append(outcome.author);
             
             outcome.title = $(this).children('.story-heading').children('a');
+            outcome.link = $(this).children("a").attr("href");
 
             // outcome.title = $(this)
             //     .parent(".story theme-summary lede")
