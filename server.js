@@ -35,7 +35,7 @@ mongoose.Promise = Promise;
 //connect mongoose to our db
 
 //Connect to MongoDB
-mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines" );
+mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/scrapedData" );
 var database = mongoose.connection;
 
 database.on( "error", function ( error ) {
