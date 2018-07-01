@@ -7,7 +7,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var rp = require('request-promise')
 
-var Article = require("./models/Article");
+var Article = require("./models/Article.js");
 
 
 // Require models
@@ -103,16 +103,16 @@ app.get("/scrape", function (req, res) {
             // console.log("RESULT: " + outcome);
 
             // // Creates a new Article 
-            // if (outcome.link && outcome.title) {
+            if (outcome.link && outcome.title) {
 
-            //     db.Article.create(outcome)
-            //         .then(function (dbArticle) {
-            //             console.log(dbArticle);
-            //         })
-            //         .catch(function (err) {
-            //             console.log(err);
-            //         });
-            // }
+                db.Article.create(outcome)
+                    .then(function (dbArticle) {
+                        console.log(dbArticle);
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            }
         });
         res.send("Success!");
     });
