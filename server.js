@@ -68,8 +68,8 @@ app.get("/scrape", function (req, res) {
             outcome.author = $(this).children('.byline').text();
             append(outcome.author);
             
-            outcome.title = $(this).children('.story-heading').children('a');
-            outcome.link = $(this).children("a").attr("href");
+            outcome.title = $(this).children('.story-heading').children('a').text();
+            outcome.link = $(this).children(".story-heading").attr("href");
 
             // outcome.title = $(this)
             //     .parent(".story theme-summary lede")
