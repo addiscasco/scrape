@@ -30,7 +30,7 @@ mongoose.Promise = Promise;
 
 //connect mongoose to our db
 
-var db = process.env.MONGODB_URI || "mongodb://localhost/scrape"
+var db = process.env.MONGODB_URI || "mongodb://localhost/scrape";
 mongoose.connect(db, function (error){
     if(error){
         console.log(error);
