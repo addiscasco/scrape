@@ -26,17 +26,19 @@ app.use(express.static("public"));
 mongoose.Promise = Promise;
 
 // Connect MONGODB or Localhost 
-var MONGODB_URI = "mongodb://addthis:password410@ds123971.mlab.com:23971/addthis" || "mongodb://localhost/Scrape";
+// var MONGODB_URI = "mongodb://addthis:password410@ds123971.mlab.com:23971/heroku_w239b39v" || "mongodb://localhost/Scrape";
 
 //connect mongoose to our db
-mongoose.connect(MONGODB_URI, function (error) {
-    if (error) {
-        console.log(error);
-    }
-    else {
-        console.log("Mongoose connection is successful");
-    }
-});
+
+mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect(MONGODB_URI, function (error) {
+//     if (error) {
+//         console.log(error);
+//     }
+//     else {
+//         console.log("Mongoose connection is successful");
+//     }
+// });
 
 // Routes
 app.get("/scrape", function (req, res) {
